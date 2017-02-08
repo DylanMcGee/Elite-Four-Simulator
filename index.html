@@ -95,8 +95,8 @@ STILL TO DO:
 2) make dropdown menu for pokemon more friendly (.5 hrs) ** COMPLETE 1/31
 3) add moveset for more pokemon (3 hrs)
 4) proper testing to ensure all things accurate (2 hrs) -- calc by hand various parts to verify 
-5) make formatting look better (need some colors, HR between multiple pokemon, add icons for pokemon) (2 hrs)
-6) learn github & post (1 hr) COMPLETE 2/6
+5) make formatting look good (2 hrs)
+6) post online various forums (2 hrs)
 7) Nuzlocke it up (b o n u s)
 
 
@@ -723,7 +723,16 @@ var pokemon = [
 		{name: "Swift", type: "Normal", power: 60},
 		tm[53],tm[57], tm[58], tm[3], tm[15], tm[14], tm[25], tm[13], tm[24], tm[29], tm[42], tm[43], tm[3], tm[10]
 	]},
-{ name: "Mr. Mime" , hp : 40 , attack : 45 , defense : 65 , specialAttack : 100 , specialDefense: 120 , speed : 90 , type : [ "Psychic" ] },
+{ name: "Mr. Mime" , hp : 40 , attack : 45 , defense : 65 , specialAttack : 100 , specialDefense: 120 , speed : 90 , type : [ "Psychic" ] ,
+		attackList : [
+			{name : "Psychic", type : "Psychic", power : 90},
+			{name : "Psybeam", type : "Psychic", power : 65},
+			{name : "Confusion", type : "Psychic", power : 50},
+			{name : "Magical Leaf", type : "Grass", power : 60},
+			{name : "Dream Eater", type : "Psychic", power : 100},
+			tm[15], tm[1], tm[22], tm[25], tm[29], tm[24], tm[30], tm[31], tm[43], tm[42], tm[10], tm[46], tm[34]
+
+		]},
 { name: "Scyther" , hp : 70 , attack : 110 , defense : 80 , specialAttack : 55 , specialDefense: 80 , speed : 105 , type : [ "Bug" , "Flying" ] ,
 	attackList :[
 		{name : "Submission (80%)", type : "Fighting", power : 80},
@@ -764,7 +773,17 @@ var pokemon = [
 { name: "Kabuto" , hp : 30 , attack : 80 , defense : 90 , specialAttack : 55 , specialDefense: 45 , speed : 55 , type : [ "Rock" , "Water" ] },
 { name: "Kabutops" , hp : 60 , attack : 115 , defense : 105 , specialAttack : 65 , specialDefense: 70 , speed : 80 , type : [ "Rock" , "Water" ] },
 { name: "Aerodactyl" , hp : 80 , attack : 105 , defense : 65 , specialAttack : 60 , specialDefense: 75 , speed : 130 , type : [ "Rock" , "Flying" ] },
-{ name: "Snorlax" , hp : 160 , attack : 110 , defense : 65 , specialAttack : 65 , specialDefense: 110 , speed : 30 , type : [ "Normal" ] },
+{ name: "Snorlax" , hp : 160 , attack : 110 , defense : 65 , specialAttack : 65 , specialDefense: 110 , speed : 30 , type : [ "Normal" ] ,
+		attackList : [
+			{name : "Hyper Beam", type : "Normal", power : 150},
+			{name : "Body Slam", type : "Normal", power : 85},
+			{name : "Headbutt", type : "Normal", power : 70},
+			{name : "Rollout (90%)", type : "Rock", power : 30},
+			{name : "Double-Edge", type : "Normal", power : 120},
+			{name : "Lick", type : "Ghost", power : 30},
+			tm[53], tm[54], tm[15], tm[22], tm[38], tm[25], tm[14], tm[26], tm[35], tm[13], tm[29], tm[24], tm[30], tm[31], tm[43], tm[42], tm[39], tm[3], tm[34], tm[10]
+
+		]},
 { name: "Articuno" , hp : 90 , attack : 85 , defense : 100 , specialAttack : 95 , specialDefense: 125 , speed : 85 , type : [ "Ice" , "Flying" ] },
 { name: "Zapdos" , hp : 90 , attack : 90 , defense : 85 , specialAttack : 125 , specialDefense: 90 , speed : 100 , type : [ "Electric" , "Flying" ] },
 { name: "Moltres" , hp : 90 , attack : 100 , defense : 90 , specialAttack : 125 , specialDefense: 85 , speed : 90 , type : [ "Fire" , "Flying" ] },
