@@ -888,13 +888,7 @@ $("#pokemon"+ i).append(speedP);
 			stabValue = calculateStab(pokemon[pokemonNumber].attackList[j].type, pokemon[pokemonNumber].type);
 			usesNormalAttack = isItANormalAttack(pokemon[pokemonNumber].attackList[j].type); //if true, use normal.  if false, use special attack
 			modifierValue = calculateTypeBonus(pokemon[pokemonNumber].attackList[j].type, eliteFour[i].type)
-			/*newP.append(pokemon[pokemonNumber].attackList[j].name + " " + stabValue + "<br/>");
-			if(usesNormalAttack){
-				newP.append("Normal <br/>")
-			}
-			else{
-				newP.append("Special <br/>")
-			} */
+
 
 
 			for(var x=20; x<=maxLevel; x++){
@@ -918,7 +912,6 @@ $("#pokemon"+ i).append(speedP);
 					console.log("dmg " + calculateTotalDamage(x, attackValue, defenseValue, pokemon[pokemonNumber].attackList[j].power, stabValue, modifierValue));
 					*/
 					if(calculateTotalDamage(x, attackValue, defenseValue, pokemon[pokemonNumber].attackList[j].power, stabValue, modifierValue) > eliteFour[i].hp){
-						console.log("in it to win it");
 						oneHitLevel = x;
 						oneHitFound = true;
 						var attackListP = $("<p>");
@@ -941,7 +934,7 @@ firstPokemon = false; //This is to make it so Elite Four names only post once, b
 });
 for(var i=0; i<150; i++){
 	if("attackList" in pokemon[i]){
-		$("#userPokemonValue").append($('<option>', {value:i, text: pokemon[i].name}));
+		$("#userPokemonValue").append($('<option>', {value:i, text: (i+1) + " - " + pokemon[i].name}));
 	}
 }
 
