@@ -1,0 +1,36 @@
+.pokemonNames{
+	font-size: 32px;
+	padding-top: 0px;
+}
+.pokemonNames img{
+	height: 64px;
+}
+.attackNames{
+	font-size: 15px;
+	margin-left : 10%;
+}
+.attackNames img{
+	height: 30px;
+}
+.pokemonSpeed{
+	margin-left: 15%;
+	font-size: 12px;
+	font-style: italic;
+	font-weight: bold;
+}
+#primaryContainer{
+	margin-left: 20%;
+	width: 50%;
+	background-color: #E2FACC;
+	padding: 10px 10px 0px 10px;
+}
+button{
+	height: 35px;
+	background-color: #7BAF4D;
+}
+input{
+	background-color: #F7C8E3;
+}
+select{
+	background-color : #F7C8E3;
+}
