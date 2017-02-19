@@ -3,75 +3,81 @@
 
 <head>
 <title>Elite Four Simulator</title>
-<style>
-.pokemonNames{
-	font-size: 25px;
-}
-.attackNames{
-	font-size: 15px;
-}
-.pokemonSpeed{
-	font-size: 12px;
-	font-style: italic;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="mycss.css">
+
 
 </head>
 
 <body>
-<div id="inputForm">
-	<p> Enter Your Pokemon Here: <select type="number" id="userPokemonValue"></select> <br/>
-	<label>Nature</label> 
-		<select id="userNatureValue"> 
-			<option value="Normal">Normal</option>
-			<option value="Adamant">Adamant</option>
-			<option value="Bashful">Bashful</option>	
-			<option value="Bold">Bold</option>
-			<option value="Brave">Brave</option>
-			<option value="Calm">Calm</option>	
-			<option value="Careful">Careful</option>	
-			<option value="Docile">Docile</option>
-			<option value="Gentle">Gentle</option>
-			<option value="Hardy">Hardy</option>	
-			<option value="Hasty">Hasty</option>
-			<option value="Impish">Impish</option>
-			<option value="Jolly">Jolly</option>	
-			<option value="Lax">Lax</option>
-			<option value="Lonely">Lonely</option>
-			<option value="Mild">Mild</option>
-			<option value="Modest">Modest</option>	
-			<option value="Naive">Naive</option>
-			<option value="Naughty">Naughty</option>
-			<option value="Quiet">Quiet</option>	
-			<option value="Quirky">Quirky</option>	
-			<option value="Rash">Rash</option>
-			<option value="Relaxed">Relaxed</option>
-			<option value="Sassy">Sassy</option>	
-			<option value="Serious">Serious</option>
-			<option value="Timid">Timid</option>
-		</select>
-	</p>
-	<p>Max Level you will farm your pokemon to?  <input type="number" id="userMaxLevel" value="65"></input> 
-	<p><a href="http://www.psypokes.com/dex/iv.php">Enter Your IVs Below: You can calculate your IVs by following this link</a>
-	</p>
-	<p> 
-		Speed IV <input type="number" id="userSpeedIValue" class="ivValue" value="16"></input> 
-		EV <input type="number" id="userSpeedEValue" class="evValue" value="0"> <br/>
-	 	Attack IV <input type="number" id="userAttackIValue" class="ivValue" value="16"></input>  
-		EV <input type="number" id="userAttackEValue" class="evValue" value="0"></input> <br/>
-	 	Special Attack IV <input type="number" id="userSpecialAttackIValue" class="ivValue" value="16"></input>
-	 	EV <input type="number" id="userSpecialAttackEValue" class="ivValue" value="0"></input>  
-	</p>
-	<button id="submitButton">Start Simulator</button>
-	<hr/>
-</div>
-<div id="simulationOutput">
+<div id="primaryContainer">
+	<div id="inputForm">
+		<p> Enter Your Pokemon Here: <select type="number" id="userPokemonValue"></select> <br/>
+		<label>Nature</label> 
+			<select id="userNatureValue"> 
+				<option value="Normal">Normal</option>
+				<option value="Adamant">Adamant</option>
+				<option value="Bashful">Bashful</option>	
+				<option value="Bold">Bold</option>
+				<option value="Brave">Brave</option>
+				<option value="Calm">Calm</option>	
+				<option value="Careful">Careful</option>	
+				<option value="Docile">Docile</option>
+				<option value="Gentle">Gentle</option>
+				<option value="Hardy">Hardy</option>	
+				<option value="Hasty">Hasty</option>
+				<option value="Impish">Impish</option>
+				<option value="Jolly">Jolly</option>	
+				<option value="Lax">Lax</option>
+				<option value="Lonely">Lonely</option>
+				<option value="Mild">Mild</option>
+				<option value="Modest">Modest</option>	
+				<option value="Naive">Naive</option>
+				<option value="Naughty">Naughty</option>
+				<option value="Quiet">Quiet</option>	
+				<option value="Quirky">Quirky</option>	
+				<option value="Rash">Rash</option>
+				<option value="Relaxed">Relaxed</option>
+				<option value="Sassy">Sassy</option>	
+				<option value="Serious">Serious</option>
+				<option value="Timid">Timid</option>
+			</select>
+		</p>
+		<p>Max Level you will farm your pokemon to?  <input type="number" id="userMaxLevel" value="65"></input> 
+		<p><a href="http://www.psypokes.com/dex/iv.php">Enter Your IVs Below: You can calculate your IVs by following this link</a>
+		</p>
+		<p> 
+			Speed IV <input type="number" id="userSpeedIValue" class="ivValue" value="16"></input> 
+			EV <input type="number" id="userSpeedEValue" class="evValue" value="0"> <br/>
+		 	Attack IV <input type="number" id="userAttackIValue" class="ivValue" value="16"></input>  
+			EV <input type="number" id="userAttackEValue" class="evValue" value="0"></input> <br/>
+		 	Special Attack IV <input type="number" id="userSpecialAttackIValue" class="ivValue" value="16"></input>
+		 	EV <input type="number" id="userSpecialAttackEValue" class="ivValue" value="0"></input>  
+		</p>
+		<button id="submitButton">Start Simulator</button>
+		<hr/>
+	</div>
+	<div id="simulationOutput">
 
+	</div>
 </div>
-
 
 <script type="text/javascript" src="jQuery-library.js"></script>
 <script>
+function getImageLink(indexValue){
+	indexValue++;
+	var imageLink = "";
+	if(indexValue < 10){
+		imageLink = "00" + indexValue.toString();
+	}
+	else if(indexValue < 100){
+		imageLink = "0" + indexValue.toString();
+	}
+	else{
+		imageLink = indexValue.toString();
+	}
+	imageLink = "http://giganticdark.altervista.org/_altervista_ht/Pokedex/pkd"+imageLink+".png";
+	return imageLink;
+}
 function calculateStab(attackType, pokemonType){
 	for(var i=0; i<pokemonType.length; i++){
 		/*console.log("********");
@@ -804,36 +810,37 @@ var pokemon = [
 ]; // end of pokemon object
 
 var eliteFour = [
-{ name : pokemon[86].name , hp : calculateHP(pokemon[86].hp , 52 , 30 , 'Normal' ), defense : calculateDefense(pokemon[86].defense , 52 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[86].specialDefense , 52 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[86].speed , 52 , 30 , 'Normal' ), type : pokemon[86].type },
-{ name : pokemon[90].name , hp : calculateHP(pokemon[90].hp , 51 , 30 , 'Normal' ), defense : calculateDefense(pokemon[90].defense , 51 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[90].specialDefense , 51 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[90].speed , 51 , 30 , 'Normal' ), type : pokemon[90].type },
-{ name : pokemon[79].name , hp : calculateHP(pokemon[79].hp , 52 , 30 , 'Normal' ), defense : calculateDefense(pokemon[79].defense , 52 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[79].specialDefense , 52 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[79].speed , 52 , 30 , 'Normal' ), type : pokemon[79].type },
-{ name : pokemon[123].name , hp : calculateHP(pokemon[123].hp , 54 , 30 , 'Normal' ), defense : calculateDefense(pokemon[123].defense , 54 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[123].specialDefense , 54 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[123].speed , 54 , 30 , 'Normal' ), type : pokemon[123].type },
-{ name : pokemon[130].name , hp : calculateHP(pokemon[130].hp , 54 , 30 , 'Normal' ), defense : calculateDefense(pokemon[130].defense , 54 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[130].specialDefense , 54 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[130].speed , 54 , 30 , 'Normal' ), type : pokemon[130].type },
-{ name : pokemon[94].name , hp : calculateHP(pokemon[94].hp , 51 , 30 , 'Normal' ), defense : calculateDefense(pokemon[94].defense , 51 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[94].specialDefense , 51 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[94].speed , 51 , 30 , 'Normal' ), type : pokemon[94].type },
-{ name : pokemon[106].name , hp : calculateHP(pokemon[106].hp , 53 , 30 , 'Normal' ), defense : calculateDefense(pokemon[106].defense , 53 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[106].specialDefense , 53 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[106].speed , 53 , 30 , 'Normal' ), type : pokemon[106].type },
-{ name : pokemon[105].name , hp : calculateHP(pokemon[105].hp , 53 , 30 , 'Normal' ), defense : calculateDefense(pokemon[105].defense , 53 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[105].specialDefense , 53 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[105].speed , 53 , 30 , 'Normal' ), type : pokemon[105].type },
-{ name : pokemon[94].name , hp : calculateHP(pokemon[94].hp , 54 , 30 , 'Normal' ), defense : calculateDefense(pokemon[94].defense , 54 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[94].specialDefense , 54 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[94].speed , 54 , 30 , 'Normal' ), type : pokemon[94].type },
-{ name : pokemon[67].name , hp : calculateHP(pokemon[67].hp , 56 , 30 , 'Normal' ), defense : calculateDefense(pokemon[67].defense , 56 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[67].specialDefense , 56 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[67].speed , 56 , 30 , 'Normal' ), type : pokemon[67].type },
-{ name : pokemon[93].name , hp : calculateHP(pokemon[93].hp , 54 , 30 , 'Normal' ), defense : calculateDefense(pokemon[93].defense , 54 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[93].specialDefense , 54 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[93].speed , 54 , 30 , 'Normal' ), type : pokemon[93].type },
-{ name : pokemon[41].name , hp : calculateHP(pokemon[41].hp , 54 , 30 , 'Normal' ), defense : calculateDefense(pokemon[41].defense , 54 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[41].specialDefense , 54 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[41].speed , 54 , 30 , 'Normal' ), type : pokemon[41].type },
-{ name : pokemon[92].name , hp : calculateHP(pokemon[92].hp , 53 , 30 , 'Normal' ), defense : calculateDefense(pokemon[92].defense , 53 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[92].specialDefense , 53 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[92].speed , 53 , 30 , 'Normal' ), type : pokemon[92].type },
-{ name : pokemon[23].name , hp : calculateHP(pokemon[23].hp , 56 , 30 , 'Normal' ), defense : calculateDefense(pokemon[23].defense , 56 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[23].specialDefense , 56 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[23].speed , 56 , 30 , 'Normal' ), type : pokemon[23].type },
-{ name : pokemon[93].name , hp : calculateHP(pokemon[93].hp , 58 , 30 , 'Normal' ), defense : calculateDefense(pokemon[93].defense , 58 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[93].specialDefense , 58 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[93].speed , 58 , 30 , 'Normal' ), type : pokemon[93].type },
-{ name : pokemon[129].name , hp : calculateHP(pokemon[129].hp , 56 , 30 , 'Normal' ), defense : calculateDefense(pokemon[129].defense , 56 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[129].specialDefense , 56 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[129].speed , 56 , 30 , 'Normal' ), type : pokemon[129].type },
-{ name : pokemon[147].name , hp : calculateHP(pokemon[147].hp , 54 , 30 , 'Normal' ), defense : calculateDefense(pokemon[147].defense , 54 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[147].specialDefense , 54 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[147].speed , 54 , 30 , 'Normal' ), type : pokemon[147].type },
-{ name : pokemon[147].name , hp : calculateHP(pokemon[147].hp , 54 , 30 , 'Normal' ), defense : calculateDefense(pokemon[147].defense , 54 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[147].specialDefense , 54 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[147].speed , 54 , 30 , 'Normal' ), type : pokemon[147].type },
-{ name : pokemon[141].name , hp : calculateHP(pokemon[141].hp , 58 , 30 , 'Normal' ), defense : calculateDefense(pokemon[141].defense , 58 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[141].specialDefense , 58 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[141].speed , 58 , 30 , 'Normal' ), type : pokemon[141].type },
-{ name : pokemon[148].name , hp : calculateHP(pokemon[148].hp , 60 , 30 , 'Normal' ), defense : calculateDefense(pokemon[148].defense , 60 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[148].specialDefense , 60 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[148].speed , 60 , 30 , 'Normal' ), type : pokemon[148].type },
-{ name : pokemon[17].name , hp : calculateHP(pokemon[17].hp , 59 , 31 , 'Normal' ), defense : calculateDefense(pokemon[17].defense , 59 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[17].specialDefense , 59 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[17].speed , 59 , 31 , 'Normal' ), type : pokemon[17].type },
-{ name : pokemon[64].name , hp : calculateHP(pokemon[64].hp , 57 , 31 , 'Normal' ), defense : calculateDefense(pokemon[64].defense , 57 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[64].specialDefense , 57 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[64].speed , 57 , 31 , 'Normal' ), type : pokemon[64].type },
-{ name : pokemon[111].name , hp : calculateHP(pokemon[111].hp , 59 , 31 , 'Normal' ), defense : calculateDefense(pokemon[111].defense , 59 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[111].specialDefense , 59 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[111].speed , 59 , 31 , 'Normal' ), type : pokemon[111].type },
-{ name : pokemon[102].name , hp : calculateHP(pokemon[102].hp , 61 , 31 , 'Normal' ), defense : calculateDefense(pokemon[102].defense , 61 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[102].specialDefense , 61 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[102].speed , 61 , 31 , 'Normal' ), type : pokemon[102].type },
-{ name : pokemon[129].name , hp : calculateHP(pokemon[129].hp , 61 , 31 , 'Normal' ), defense : calculateDefense(pokemon[129].defense , 61 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[129].specialDefense , 61 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[129].speed , 61 , 31 , 'Normal' ), type : pokemon[129].type },
-{ name : pokemon[58].name , hp : calculateHP(pokemon[58].hp , 61 , 31 , 'Normal' ), defense : calculateDefense(pokemon[58].defense , 61 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[58].specialDefense , 61 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[58].speed , 61 , 31 , 'Normal' ), type : pokemon[58].type },
-{ name : pokemon[8].name , hp : calculateHP(pokemon[8].hp , 63 , 31 , 'Normal' ), defense : calculateDefense(pokemon[8].defense , 63 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[8].specialDefense , 63 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[8].speed , 63 , 31 , 'Normal' ), type : pokemon[8].type },
-{ name : pokemon[2].name , hp : calculateHP(pokemon[2].hp , 63 , 31 , 'Normal' ), defense : calculateDefense(pokemon[2].defense , 63 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[2].specialDefense , 63 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[2].speed , 63 , 31 , 'Normal' ), type : pokemon[2].type },
-{ name : pokemon[5].name , hp : calculateHP(pokemon[5].hp , 63 , 31 , 'Normal' ), defense : calculateDefense(pokemon[5].defense , 63 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[5].specialDefense , 63 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[5].speed , 63 , 31 , 'Normal' ), type : pokemon[5].type }
+{ id : 86 , name : pokemon[86].name , hp : calculateHP(pokemon[86].hp , 52 , 30 , 'Normal' ), defense : calculateDefense(pokemon[86].defense , 52 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[86].specialDefense , 52 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[86].speed , 52 , 30 , 'Normal' ), type : pokemon[86].type },
+{ id : 90, name : pokemon[90].name , hp : calculateHP(pokemon[90].hp , 51 , 30 , 'Normal' ), defense : calculateDefense(pokemon[90].defense , 51 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[90].specialDefense , 51 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[90].speed , 51 , 30 , 'Normal' ), type : pokemon[90].type },
+{ id : 79, name : pokemon[79].name , hp : calculateHP(pokemon[79].hp , 52 , 30 , 'Normal' ), defense : calculateDefense(pokemon[79].defense , 52 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[79].specialDefense , 52 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[79].speed , 52 , 30 , 'Normal' ), type : pokemon[79].type },
+{ id : 123, name : pokemon[123].name , hp : calculateHP(pokemon[123].hp , 54 , 30 , 'Normal' ), defense : calculateDefense(pokemon[123].defense , 54 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[123].specialDefense , 54 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[123].speed , 54 , 30 , 'Normal' ), type : pokemon[123].type },
+{ id : 130, name : pokemon[130].name , hp : calculateHP(pokemon[130].hp , 54 , 30 , 'Normal' ), defense : calculateDefense(pokemon[130].defense , 54 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[130].specialDefense , 54 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[130].speed , 54 , 30 , 'Normal' ), type : pokemon[130].type },
+{ id : 94, name : pokemon[94].name , hp : calculateHP(pokemon[94].hp , 51 , 30 , 'Normal' ), defense : calculateDefense(pokemon[94].defense , 51 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[94].specialDefense , 51 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[94].speed , 51 , 30 , 'Normal' ), type : pokemon[94].type },
+{ id : 106, name : pokemon[106].name , hp : calculateHP(pokemon[106].hp , 53 , 30 , 'Normal' ), defense : calculateDefense(pokemon[106].defense , 53 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[106].specialDefense , 53 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[106].speed , 53 , 30 , 'Normal' ), type : pokemon[106].type },
+{ id : 105, name : pokemon[105].name , hp : calculateHP(pokemon[105].hp , 53 , 30 , 'Normal' ), defense : calculateDefense(pokemon[105].defense , 53 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[105].specialDefense , 53 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[105].speed , 53 , 30 , 'Normal' ), type : pokemon[105].type },
+{ id : 94, name : pokemon[94].name , hp : calculateHP(pokemon[94].hp , 54 , 30 , 'Normal' ), defense : calculateDefense(pokemon[94].defense , 54 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[94].specialDefense , 54 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[94].speed , 54 , 30 , 'Normal' ), type : pokemon[94].type },
+{ id : 67, name : pokemon[67].name , hp : calculateHP(pokemon[67].hp , 56 , 30 , 'Normal' ), defense : calculateDefense(pokemon[67].defense , 56 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[67].specialDefense , 56 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[67].speed , 56 , 30 , 'Normal' ), type : pokemon[67].type },
+{ id : 93, name : pokemon[93].name , hp : calculateHP(pokemon[93].hp , 54 , 30 , 'Normal' ), defense : calculateDefense(pokemon[93].defense , 54 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[93].specialDefense , 54 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[93].speed , 54 , 30 , 'Normal' ), type : pokemon[93].type },
+{ id : 41, name : pokemon[41].name , hp : calculateHP(pokemon[41].hp , 54 , 30 , 'Normal' ), defense : calculateDefense(pokemon[41].defense , 54 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[41].specialDefense , 54 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[41].speed , 54 , 30 , 'Normal' ), type : pokemon[41].type },
+{ id : 92, name : pokemon[92].name , hp : calculateHP(pokemon[92].hp , 53 , 30 , 'Normal' ), defense : calculateDefense(pokemon[92].defense , 53 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[92].specialDefense , 53 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[92].speed , 53 , 30 , 'Normal' ), type : pokemon[92].type },
+{ id : 23, name : pokemon[23].name , hp : calculateHP(pokemon[23].hp , 56 , 30 , 'Normal' ), defense : calculateDefense(pokemon[23].defense , 56 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[23].specialDefense , 56 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[23].speed , 56 , 30 , 'Normal' ), type : pokemon[23].type },
+{ id : 93, name : pokemon[93].name , hp : calculateHP(pokemon[93].hp , 58 , 30 , 'Normal' ), defense : calculateDefense(pokemon[93].defense , 58 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[93].specialDefense , 58 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[93].speed , 58 , 30 , 'Normal' ), type : pokemon[93].type },
+{ id : 129, name : pokemon[129].name , hp : calculateHP(pokemon[129].hp , 56 , 30 , 'Normal' ), defense : calculateDefense(pokemon[129].defense , 56 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[129].specialDefense , 56 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[129].speed , 56 , 30 , 'Normal' ), type : pokemon[129].type },
+{ id : 147, name : pokemon[147].name , hp : calculateHP(pokemon[147].hp , 54 , 30 , 'Normal' ), defense : calculateDefense(pokemon[147].defense , 54 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[147].specialDefense , 54 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[147].speed , 54 , 30 , 'Normal' ), type : pokemon[147].type },
+{ id : 147, name : pokemon[147].name , hp : calculateHP(pokemon[147].hp , 54 , 30 , 'Normal' ), defense : calculateDefense(pokemon[147].defense , 54 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[147].specialDefense , 54 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[147].speed , 54 , 30 , 'Normal' ), type : pokemon[147].type },
+{ id : 141, name : pokemon[141].name , hp : calculateHP(pokemon[141].hp , 58 , 30 , 'Normal' ), defense : calculateDefense(pokemon[141].defense , 58 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[141].specialDefense , 58 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[141].speed , 58 , 30 , 'Normal' ), type : pokemon[141].type },
+{ id : 148, name : pokemon[148].name , hp : calculateHP(pokemon[148].hp , 60 , 30 , 'Normal' ), defense : calculateDefense(pokemon[148].defense , 60 , 30 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[148].specialDefense , 60 , 30 , 'Normal' ) , speed : calculateSpeed(pokemon[148].speed , 60 , 30 , 'Normal' ), type : pokemon[148].type },
+{ id : 17, name : pokemon[17].name , hp : calculateHP(pokemon[17].hp , 59 , 31 , 'Normal' ), defense : calculateDefense(pokemon[17].defense , 59 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[17].specialDefense , 59 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[17].speed , 59 , 31 , 'Normal' ), type : pokemon[17].type },
+{ id : 64, name : pokemon[64].name , hp : calculateHP(pokemon[64].hp , 57 , 31 , 'Normal' ), defense : calculateDefense(pokemon[64].defense , 57 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[64].specialDefense , 57 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[64].speed , 57 , 31 , 'Normal' ), type : pokemon[64].type },
+{ id : 111, name : pokemon[111].name , hp : calculateHP(pokemon[111].hp , 59 , 31 , 'Normal' ), defense : calculateDefense(pokemon[111].defense , 59 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[111].specialDefense , 59 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[111].speed , 59 , 31 , 'Normal' ), type : pokemon[111].type },
+{ id : 102, name : pokemon[102].name , hp : calculateHP(pokemon[102].hp , 61 , 31 , 'Normal' ), defense : calculateDefense(pokemon[102].defense , 61 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[102].specialDefense , 61 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[102].speed , 61 , 31 , 'Normal' ), type : pokemon[102].type },
+{ id : 129, name : pokemon[129].name , hp : calculateHP(pokemon[129].hp , 61 , 31 , 'Normal' ), defense : calculateDefense(pokemon[129].defense , 61 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[129].specialDefense , 61 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[129].speed , 61 , 31 , 'Normal' ), type : pokemon[129].type },
+{ id : 58, name : pokemon[58].name , hp : calculateHP(pokemon[58].hp , 61 , 31 , 'Normal' ), defense : calculateDefense(pokemon[58].defense , 61 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[58].specialDefense , 61 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[58].speed , 61 , 31 , 'Normal' ), type : pokemon[58].type },
+{ id : 8, name : pokemon[8].name , hp : calculateHP(pokemon[8].hp , 63 , 31 , 'Normal' ), defense : calculateDefense(pokemon[8].defense , 63 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[8].specialDefense , 63 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[8].speed , 63 , 31 , 'Normal' ), type : pokemon[8].type },
+{ id : 2, name : pokemon[2].name , hp : calculateHP(pokemon[2].hp , 63 , 31 , 'Normal' ), defense : calculateDefense(pokemon[2].defense , 63 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[2].specialDefense , 63 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[2].speed , 63 , 31 , 'Normal' ), type : pokemon[2].type },
+{ id : 5, name : pokemon[5].name , hp : calculateHP(pokemon[5].hp , 63 , 31 , 'Normal' ), defense : calculateDefense(pokemon[5].defense , 63 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[5].specialDefense , 63 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[5].speed , 63 , 31 , 'Normal' ), type : pokemon[5].type }
 ];
+var firstPokemon = true;
 $("#submitButton").on("click", function(){
 //Values to Grab Once
 var pokemonNumber = $("#userPokemonValue").val();
@@ -850,22 +857,17 @@ var oneHitLevel = 1;
 var attackValue = 0;
 var defenseValue = 0;
 var higherSpeedFound = false;
-var firstPokemon = true;
 var maxLevel = $("#userMaxLevel").val();
-//Console Log Tests
-console.log(pokemonNumber);
-console.log(pokemon[pokemonNumber].name);
-console.log(pokemonNature);
 
-//Beginning of Test
 for(var i=0; i<eliteFour.length; i++){
 if(firstPokemon){
 	var newP = $("<p>");
 	newP.addClass("pokemonNames");
 	newP.attr("id", "pokemon" + i);
-	newP.text(eliteFour[i].name);
+	newP.html("<img src=" +getImageLink(eliteFour[i].id) + "></img> " + eliteFour[i].name);
 	$("#simulationOutput").append(newP);
 };
+console.log(firstPokemon);
 
 var speedP = $("<p>");
 speedP.addClass("pokemonSpeed");
@@ -916,7 +918,7 @@ $("#pokemon"+ i).append(speedP);
 						oneHitFound = true;
 						var attackListP = $("<p>");
 						attackListP.addClass("attackNames");
-						attackListP.text(pokemon[pokemonNumber].attackList[j].name + " - LVL " + oneHitLevel);
+						attackListP.html("<img src=" +getImageLink(pokemonNumber) + "></img>" +  pokemon[pokemonNumber].attackList[j].name + " - LVL " + oneHitLevel);
 						$("#pokemon"+ i).append(attackListP);
 
 					}
@@ -930,6 +932,7 @@ $("#pokemon"+ i).append(speedP);
 
 }
 firstPokemon = false; //This is to make it so Elite Four names only post once, but you can keep running more pokemon against them and the html will format to correct IDs
+console.log("asdf");
 
 });
 for(var i=0; i<150; i++){
