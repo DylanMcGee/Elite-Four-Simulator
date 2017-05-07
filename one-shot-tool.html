@@ -17,7 +17,7 @@
 	<button class="bannerbutton" id="placeholder">PokeMath Explained </button>
 	<button class="bannerbutton" id="placeholder">Nuzlocke Media</button>
 	<button class="bannerbutton" id="placeholder">Contact Me</button>
-
+</div> -->
 <p id = "bannerText">
 	<span id = "first">
 		<a href='#'>Solo Matchup</a>
@@ -31,13 +31,13 @@
 	<span id="fourth">
 		<a href="#">Contact</a>
 	</span>
-</p> </div> -->
+</p>
 <img id="banner" src="pokebanner.png"></img>
 <div id="primaryContainer">
 	<div id="inputForm">
 		<p><i>This tool simulates a battle between your pokemon and every member of the Elite Four.  It provides a full list of attacks that will one hit KO each pokemon.
 		<br/>
-		You can run the simulation multiple times, in order to find a well balanced team. </i></p>
+		You can run the simulation more than once, in order to select a well balanced team. </i></p>
 		<p> Enter Your Pokemon Here: <select type="number" id="userPokemonValue"></select> <br/>
 		<label>Nature</label> 
 			<select id="userNatureValue"> 
@@ -102,7 +102,7 @@ function getImageLink(indexValue){
 	else{
 		imageLink = indexValue.toString();
 	}
-	imageLink = "http://assets.pokemon.com/assets/cms2/img/pokedex/full/" + imageLink+".png";
+	imageLink = "http://giganticdark.altervista.org/_altervista_ht/Pokedex/pkd"+imageLink+".png";
 	return imageLink;
 }
 function calculateStab(attackType, pokemonType){
