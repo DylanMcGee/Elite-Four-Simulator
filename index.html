@@ -3,13 +3,27 @@
 
 <head>
 <title>Pokemath Academy</title>
-<link rel="stylesheet" type="text/css" href="mycss.css">
-<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="css/app.css">
 
 
 </head>
 
 <body>
+<!-- ******************************************************TO DO AS OF 5/14/17 ***************************************************************
+
+                    1) Put link to IVs below & style
+                    2) Have output of simulation have 3 columns.  Important that new line starts for second simulation, even if first didnt end as clean multiple of 3
+                    
+                ************Bigger Picture Items*********************
+                    0) Should navbar background color be changed to my branded blue? Right now page has blue, green, and red -- the colors of OG pokemon.  But it may look better w/ just blue and green.
+                    1) Add a Pokemath Explained Section
+                    2) Add a navigation bar
+                    3) Ask for entry level help on JSON for pokemon attacks
+                    4) --- Much Later if ever --- add a separate page that lets you pick one pokemon, then tells how much damage each of the elite fours attacks does.  also lists best 8 attacks against each of elite four,       and has a display bar which shows the amount of damage it does.
+
+
+
+-->
 <!--<div id="banner">
 	<h1>Pokemon FireRed Math Academy</h1>
 	<button class="bannerbutton" id="placeholder">One Shot Simulator</button>
@@ -32,61 +46,95 @@
 		<a href="#">Contact</a>
 	</span>
 </p> </div> -->
+<div id="background"></div>    
+    
 <img id="banner" src="pokebanner.png"></img>
+
 <div id="primaryContainer">
 	<div id="inputForm">
-		<p><i>This tool simulates a battle between your pokemon and every member of the Elite Four.  It provides a full list of attacks that will one hit KO each pokemon.
-		<br/>
-		You can run the simulation multiple times, in order to find a well balanced team. </i></p>
-		<p> Enter Your Pokemon Here: <select type="number" id="userPokemonValue"></select> <br/>
-		<label>Nature</label> 
-			<select id="userNatureValue"> 
-				<option value="Normal">Normal</option>
-				<option value="Adamant">Adamant</option>
-				<option value="Bashful">Bashful</option>	
-				<option value="Bold">Bold</option>
-				<option value="Brave">Brave</option>
-				<option value="Calm">Calm</option>	
-				<option value="Careful">Careful</option>	
-				<option value="Docile">Docile</option>
-				<option value="Gentle">Gentle</option>
-				<option value="Hardy">Hardy</option>	
-				<option value="Hasty">Hasty</option>
-				<option value="Impish">Impish</option>
-				<option value="Jolly">Jolly</option>	
-				<option value="Lax">Lax</option>
-				<option value="Lonely">Lonely</option>
-				<option value="Mild">Mild</option>
-				<option value="Modest">Modest</option>	
-				<option value="Naive">Naive</option>
-				<option value="Naughty">Naughty</option>
-				<option value="Quiet">Quiet</option>	
-				<option value="Quirky">Quirky</option>	
-				<option value="Rash">Rash</option>
-				<option value="Relaxed">Relaxed</option>
-				<option value="Sassy">Sassy</option>	
-				<option value="Serious">Serious</option>
-				<option value="Timid">Timid</option>
-			</select>
-		</p>
-		<p>Max Level you will farm your pokemon to?  <input type="number" id="userMaxLevel" value="65"></input> 
-		<p><a href="http://www.psypokes.com/dex/iv.php">Enter Your IVs Below: You can calculate your IVs by following this link</a>
-		</p>
-		<p> 
-			Speed IV <input type="number" id="userSpeedIValue" class="ivValue" value="16"></input> 
-			EV <input type="number" id="userSpeedEValue" class="evValue" value="0"> <br/>
-		 	Attack IV <input type="number" id="userAttackIValue" class="ivValue" value="16"></input>  
-			EV <input type="number" id="userAttackEValue" class="evValue" value="0"></input> <br/>
-		 	Special Attack IV <input type="number" id="userSpecialAttackIValue" class="ivValue" value="16"></input>
-		 	EV <input type="number" id="userSpecialAttackEValue" class="ivValue" value="0"></input>  
-		</p>
-		<button id="submitButton">Start Simulation</button>
-		<hr/>
-	</div>
-	<div id="simulationOutput">
+		<p class="toolInstructions">
+            This tool simulates a battle between your pokemon and every member of the Elite Four.  It provides a full list of attacks that will one hit KO each member of the elite four, and lists the first level that the attack is guarenteed to KO.
+            You can run the simulation multiple times without refreshing - this allows you to see and fill in the gaps in your team.
+        </p>
+        <div id="mandatorySelectionsAndPicture">
+            <div id='mandatorySelections'>
+                <h2> 
+                    Select a Pokemon: <br/> 
+                    
+                    <select type="number" id="userPokemonValue"></select> 
+                </h2>
 
-	</div>
+                <h3>
+                    Select Nature
+
+                    <select id="userNatureValue"> 
+                        <option value="Normal">Normal</option>
+                        <option value="Adamant">Adamant</option>
+                        <option value="Bashful">Bashful</option>	
+                        <option value="Bold">Bold</option>
+                        <option value="Brave">Brave</option>
+                        <option value="Calm">Calm</option>	
+                        <option value="Careful">Careful</option>	
+                        <option value="Docile">Docile</option>
+                        <option value="Gentle">Gentle</option>
+                        <option value="Hardy">Hardy</option>	
+                        <option value="Hasty">Hasty</option>
+                        <option value="Impish">Impish</option>
+                        <option value="Jolly">Jolly</option>	
+                        <option value="Lax">Lax</option>
+                        <option value="Lonely">Lonely</option>
+                        <option value="Mild">Mild</option>
+                        <option value="Modest">Modest</option>	
+                        <option value="Naive">Naive</option>
+                        <option value="Naughty">Naughty</option>
+                        <option value="Quiet">Quiet</option>	
+                        <option value="Quirky">Quirky</option>	
+                        <option value="Rash">Rash</option>
+                        <option value="Relaxed">Relaxed</option>
+                        <option value="Sassy">Sassy</option>	
+                        <option value="Serious">Serious</option>
+                        <option value="Timid">Timid</option>
+                    </select>
+                </h3>
+
+                <h3>
+                    Max Level <input type="number" id="userMaxLevel" value="65">
+                </h3>
+            </div>
+            <div id="pokemonIcon">
+                <img src="http://assets.pokemon.com/assets/cms2/img/pokedex/full/003.png"></img>
+            </div>
+        </div>
+
+        
+        
+        <div id="topDivider" class="divider">
+            Enter the Pokemon's IVs and EVs Below. The default values are average Pokemon without EV training.<br/>
+            Psypokes developed a simple tool for calculating your IVs <a href="http://www.psypokes.com/dex/iv.php" target="_blank">here</a>
+        </div>
+        
+        
+        <div id="ivAndEvContainer">
+            <div class="ivValue">
+                <p>Speed IV <input type="number" id="userSpeedIValue" value="16"></p>
+                <p>Attack IV <input type="number" id="userAttackIValue" value="16"></p>
+                <p>Special ATK IV <input type="number" id="userSpecialAttackIValue" value="16"></p>
+            </div>
+            <div class="evValue">
+                <p>Speed EV <input type="number" id="userSpeedEValue" value="0"></p>
+                <p>Attack EV <input type="number" id="userAttackEValue" value="0"></p>
+                <p>Special ATK EV <input type="number" id="userSpecialAttackEValue" value="0"></p>
+            </div>
+        </div>
+        <button id="submitButton">Start Simulation</button>
+        <hr/>
+        </div> 
+        <div id="simulationOutput">
+
+        </div>
 </div>
+    
+
 
 <script type="text/javascript" src="jQuery-library.js"></script>
 <script>
@@ -888,10 +936,10 @@ var maxLevel = $("#userMaxLevel").val();
 
 for(var i=0; i<eliteFour.length; i++){
 if(firstPokemon){
-	var newP = $("<p>");
-	newP.addClass("pokemonNames");
+	var newP = $("<div>");
+	newP.addClass("eliteFourPokemon");
 	newP.attr("id", "pokemon" + i);
-	newP.html("<img src=" +getImageLink(eliteFour[i].id) + "></img> " + eliteFour[i].name);
+    newP.html("<img class = 'eliteFourImage' src=" +getImageLink(eliteFour[i].id) + "></img> <h4>" + eliteFour[i].name) + "</h4>";
 	$("#simulationOutput").append(newP);
 };
 console.log(firstPokemon);
@@ -912,12 +960,17 @@ if (higherSpeedFound == false){
 }
 higherSpeedFound = false;
 $("#pokemon"+ i).append(speedP);
+    
+    if(maxLevel>100){
+        maxLevel=100;
+        $('#userMaxLevel').val(100);
+        
+    }
 
 	for(var j=0; j<pokemon[pokemonNumber].attackList.length; j++){
 			stabValue = calculateStab(pokemon[pokemonNumber].attackList[j].type, pokemon[pokemonNumber].type);
 			usesNormalAttack = isItANormalAttack(pokemon[pokemonNumber].attackList[j].type); //if true, use normal.  if false, use special attack
 			modifierValue = calculateTypeBonus(pokemon[pokemonNumber].attackList[j].type, eliteFour[i].type)
-
 
 
 			for(var x=20; x<=maxLevel; x++){
@@ -932,14 +985,7 @@ $("#pokemon"+ i).append(speedP);
 						attackValue = calculateSpecialAttack(pokemon[pokemonNumber].specialAttack, x, specialAttackIV, pokemonNature);
 						defenseValue = eliteFour[i].specialDefense;
 					}
-					/* console.log("x " + x);
-					console.log("attack" + attackValue);
-					console.log(defenseValue);
-					console.log(pokemon[pokemonNumber].attackList[j].power);
-					console.log(stabValue);
-					console.log("modif " +modifierValue);
-					console.log("dmg " + calculateTotalDamage(x, attackValue, defenseValue, pokemon[pokemonNumber].attackList[j].power, stabValue, modifierValue));
-					*/
+
 					if(calculateTotalDamage(x, attackValue, defenseValue, pokemon[pokemonNumber].attackList[j].power, stabValue, modifierValue) > eliteFour[i].hp){
 						oneHitLevel = x;
 						oneHitFound = true;
@@ -959,7 +1005,6 @@ $("#pokemon"+ i).append(speedP);
 
 }
 firstPokemon = false; //This is to make it so Elite Four names only post once, but you can keep running more pokemon against them and the html will format to correct IDs
-console.log("asdf");
 
 });
 for(var i=0; i<150; i++){
