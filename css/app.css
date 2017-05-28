@@ -136,12 +136,14 @@ h2, h3 {
 
 .attackNames {
   font-size: 15px;
-  margin-left: 0%;
+  margin-left: 0%; }
+  .attackNames img {
+    height: 60px; }
+
+.pokemonAttackListContainer {
   -webkit-columns: 3 200px;
   -moz-columns: 3 200px;
   columns: 3 200px; }
-  .attackNames img {
-    height: 60px; }
 
 /* MODULES */
 #banner {

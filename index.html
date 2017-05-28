@@ -102,7 +102,7 @@
                 </h3>
             </div>
             <div id="pokemonIcon">
-                <img src="http://assets.pokemon.com/assets/cms2/img/pokedex/full/003.png"></img>
+                <img id="pokemonIconImage" src="http://assets.pokemon.com/assets/cms2/img/pokedex/full/003.png"></img>
             </div>
         </div>
 
@@ -916,8 +916,10 @@ var eliteFour = [
 { id : 5, name : pokemon[5].name , hp : calculateHP(pokemon[5].hp , 63 , 31 , 'Normal' ), defense : calculateDefense(pokemon[5].defense , 63 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[5].specialDefense , 63 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[5].speed , 63 , 31 , 'Normal' ), type : pokemon[5].type }
 ];
 var firstPokemon = true;
+var firstSimulation = true;
+var timesSimulationRan = 0;
 $("#submitButton").on("click", function(){
-//Values to Grab Once
+//Values below pulled from form input
 var pokemonNumber = $("#userPokemonValue").val();
 var pokemonNature = $("#userNatureValue").val();
 var speedIV = parseFloat($("#userSpeedIValue").val()) + parseFloat($("#userSpeedEValue").val()/4);
@@ -933,16 +935,21 @@ var attackValue = 0;
 var defenseValue = 0;
 var higherSpeedFound = false;
 var maxLevel = $("#userMaxLevel").val();
+    
+if(!firstSimulation){
+    timesSimulationRan+=1;
+}
+
 
 for(var i=0; i<eliteFour.length; i++){
 if(firstPokemon){
 	var newP = $("<div>");
 	newP.addClass("eliteFourPokemon");
 	newP.attr("id", "pokemon" + i);
-    newP.html("<img class = 'eliteFourImage' src=" +getImageLink(eliteFour[i].id) + "></img> <h4>" + eliteFour[i].name) + "</h4>";
+    newP.html("<img class = 'eliteFourImage' src=" +getImageLink(eliteFour[i].id) + "></img> <h4>" + eliteFour[i].name) + "</h4></div>";
 	$("#simulationOutput").append(newP);
 };
-console.log(firstPokemon);
+    
 
 var speedP = $("<p>");
 speedP.addClass("pokemonSpeed");
@@ -966,6 +973,7 @@ $("#pokemon"+ i).append(speedP);
         $('#userMaxLevel').val(100);
         
     }
+    $("#pokemon"+ i).append("<div class='pokemonAttackListContainer' id='simulation" +timesSimulationRan + "eliteFour" + i + "'>");
 
 	for(var j=0; j<pokemon[pokemonNumber].attackList.length; j++){
 			stabValue = calculateStab(pokemon[pokemonNumber].attackList[j].type, pokemon[pokemonNumber].type);
@@ -992,12 +1000,13 @@ $("#pokemon"+ i).append(speedP);
 						var attackListP = $("<p>");
 						attackListP.addClass("attackNames");
 						attackListP.html("<img src=" +getImageLink(pokemonNumber) + "></img>" +  pokemon[pokemonNumber].attackList[j].name + " - LVL " + oneHitLevel);
-						$("#pokemon"+ i).append(attackListP);
+						$("#simulation" +timesSimulationRan + "eliteFour" + i).append(attackListP);
 
 					}
 				}
 
 			}
+        $("#pokemon"+ i).append("</div>"); //closes out pokemonAttackListContainer
 			oneHitLevel = 1;
 			oneHitFound = false;
 
@@ -1005,6 +1014,7 @@ $("#pokemon"+ i).append(speedP);
 
 }
 firstPokemon = false; //This is to make it so Elite Four names only post once, but you can keep running more pokemon against them and the html will format to correct IDs
+firstSimulation=false;
 
 });
 for(var i=0; i<150; i++){
@@ -1012,6 +1022,12 @@ for(var i=0; i<150; i++){
 		$("#userPokemonValue").append($('<option>', {value:i, text: (i+1) + " - " + pokemon[i].name}));
 	}
 }
+
+    //updates images when user selects a pokemon (before submission)
+$("#userPokemonValue").on("change", function(){
+    var pokemonNumber = $("#userPokemonValue").val();
+    $("#pokemonIconImage").attr("src", getImageLink(pokemonNumber));
+});
 
 </script>
 </body>
