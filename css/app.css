@@ -75,6 +75,14 @@ h2, h3 {
   .divider a {
     color: white; }
 
+#errDuplicatePokemon {
+  visibility: hidden;
+  color: orangered;
+  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  display: inline;
+  margin: 20px;
+  font-size: 0.8em; }
+
 #mandatorySelectionsAndPicture::after {
   clear: both;
   content: "";
@@ -131,9 +139,10 @@ h2, h3 {
 .pokemonSpeed {
   margin-top: 20px;
   margin-left: 20%;
-  font-size: 0.5em;
+  font-size: 0.6em;
   font-style: italic;
-  font-weight: bold; }
+  font-weight: bold;
+  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif; }
 
 .attackNames {
   font-size: 15px;
@@ -145,6 +154,12 @@ h2, h3 {
   -webkit-columns: 3 200px;
   -moz-columns: 3 200px;
   columns: 3 200px; }
+
+.noAttackFound {
+  color: #b33000;
+  font-size: 0.5em;
+  margin-left: 20%;
+  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif; }
 
 /* MODULES */
 #banner {
@@ -178,6 +193,9 @@ button:active, input[type="button"]:active, input[type="reset"]:active, input[ty
   top: 2px;
   left: -2px;
   box-shadow: -2px 2px 0; }
+
+#submitButton {
+  display: inline; }
 
 #eliteFourLegend {
   position: fixed;

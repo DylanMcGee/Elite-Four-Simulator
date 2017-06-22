@@ -9,43 +9,7 @@
 </head>
 
 <body>
-<!-- ******************************************************TO DO AS OF 5/14/17 ***************************************************************
 
-                    1) Put link to IVs below & style
-                    2) Have output of simulation have 3 columns.  Important that new line starts for second simulation, even if first didnt end as clean multiple of 3
-                    
-                ************Bigger Picture Items*********************
-                    0) Should navbar background color be changed to my branded blue? Right now page has blue, green, and red -- the colors of OG pokemon.  But it may look better w/ just blue and green.
-                    1) Add a Pokemath Explained Section
-                    2) Add a navigation bar
-                    3) Ask for entry level help on JSON for pokemon attacks
-                    4) --- Much Later if ever --- add a separate page that lets you pick one pokemon, then tells how much damage each of the elite fours attacks does.  also lists best 8 attacks against each of elite four,       and has a display bar which shows the amount of damage it does.
-
-
-
--->
-<!--<div id="banner">
-	<h1>Pokemon FireRed Math Academy</h1>
-	<button class="bannerbutton" id="placeholder">One Shot Simulator</button>
-	<button class="bannerbutton" id="placeholder">Matchup Calculator</button>
-	<button class="bannerbutton" id="placeholder">PokeMath Explained </button>
-	<button class="bannerbutton" id="placeholder">Nuzlocke Media</button>
-	<button class="bannerbutton" id="placeholder">Contact Me</button>
-
-<p id = "bannerText">
-	<span id = "first">
-		<a href='#'>Solo Matchup</a>
-	</span>
-	<span id = "second">
-		<a href="#">One Shot Calculator</a>
-	</span>
-	<span id="third">
-		<a href='#'>PokeMath Explained</a>
-	</span>
-	<span id="fourth">
-		<a href="#">Contact</a>
-	</span>
-</p> </div> -->
 <div id="background"></div>    
     
 <img id="banner" src="images/pokebanner.png"></img>
@@ -54,7 +18,7 @@
 	<div id="inputForm">
 		<p class="toolInstructions">
             This tool simulates a battle between your pokémon and every member of the Elite Four.  It provides a full list of attacks that will one hit KO each member of the elite four, and lists the first level that the attack is guarenteed to KO.
-            You can run the simulation multiple times without refreshing - this allows you to see and fill in the gaps in your team.
+            You can run the simulation multiple times without refreshing - this allows you to build well-rounded team.
         </p>
         <div id="mandatorySelectionsAndPicture">
             <div id='mandatorySelections'>
@@ -98,7 +62,7 @@
                 </h3>
 
                 <h3>
-                    Max Level <input type="number" id="userMaxLevel" value="65">
+                    Max Level <input type="number" id="userMaxLevel" value="70">
                 </h3>
             </div>
             <div id="pokemonIcon">
@@ -126,7 +90,9 @@
                 <p>Special ATK EV <input type="number" id="userSpecialAttackEValue" value="0"></p>
             </div>
         </div>
-        <button id="submitButton">Start Simulation</button>
+        <button id="submitButton">Battle Elite-Four</button>
+        <p id="errDuplicatePokemon">That Pokemon was already chosen. Try selecting a new Pokemon to compliment your team.</p>
+        
         <hr/>
         </div> 
         <div id="simulationOutput">
@@ -170,19 +136,6 @@ function calculateStab(attackType, pokemonType){
 function calculateTotalDamage(level, attack, defense, base, stab, type){
 	return ( (2*level+10)/250 * (attack/defense) * base +2) * stab * type *0.85;
 }
-/*
-********************************************
-STILL TO DO:
-1) calculateTypeBonus function -- create (1 hr) ** Complete 1/31
-2) make dropdown menu for pokemon more friendly (.5 hrs) ** COMPLETE 1/31
-3) add moveset for more pokemon (3 hrs)
-4) proper testing to ensure all things accurate (2 hrs) -- calc by hand various parts to verify 
-5) make formatting look better (need some colors, HR between multiple pokemon, add icons for pokemon) (2 hrs)
-6) learn github & post (1 hr) COMPLETE 2/6
-7) Nuzlocke it up (b o n u s)
-
-
-*/
 
 function calculateTypeBonus(attackType, attackedPokemonType){
 
@@ -1990,10 +1943,13 @@ var eliteFour = [
 { id : 2, name : pokemon[2].name , hp : calculateHP(pokemon[2].hp , 63 , 31 , 'Normal' ), defense : calculateDefense(pokemon[2].defense , 63 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[2].specialDefense , 63 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[2].speed , 63 , 31 , 'Normal' ), type : pokemon[2].type },
 { id : 5, name : pokemon[5].name , hp : calculateHP(pokemon[5].hp , 63 , 31 , 'Normal' ), defense : calculateDefense(pokemon[5].defense , 63 , 31 , 'Normal' ) , specialDefense :  calculateSpecialDefense(pokemon[5].specialDefense , 63 , 31 , 'Normal' ) , speed : calculateSpeed(pokemon[5].speed , 63 , 31 , 'Normal' ), type : pokemon[5].type }
 ];
+
 var firstPokemon = true;
 /* firstSimulation is used for two purposes.  1) It prevents eliteFour names/images from posting multiple times.  2) prevents shortcuts on images from posting twice */
 var firstSimulation = true;
 var timesSimulationRan = 0;
+var userSelectionHistory = [];    
+
 $("#submitButton").on("click", function(){
 //Values below pulled from form input
 var pokemonNumber = $("#userPokemonValue").val();
@@ -2012,158 +1968,180 @@ var defenseValue = 0;
 var higherSpeedFound = false;
 var maxLevel = $("#userMaxLevel").val();
 
+
 //timesSimulationRan is needed so the nth pokemon's attack moves can be appended on to the nth pokemon's div    
 if(!firstSimulation){
     timesSimulationRan+=1;
 }
 
-
-for(var i=0; i<eliteFour.length; i++){
-    if(firstSimulation){
-        var newP = $("<div>");
-        newP.addClass("eliteFourPokemon");
-        newP.attr("id", "pokemon" + i);
-        newP.html("<img class = 'eliteFourImage' src=" +getImageLink(eliteFour[i].id) + "></img> <h4>" + eliteFour[i].name) + "</h4></div>";
-        $("#simulationOutput").append(newP);
-    };
-    
-
-    var speedP = $("<p>");
-    speedP.addClass("pokemonSpeed");
-	for(var z=0; z<=100; z++){
-		if(!higherSpeedFound){
-			if (calculateSpeed(pokemon[pokemonNumber].speed, z, speedIV, pokemonNature) > eliteFour[i].speed){
-				speedP.text(pokemon[pokemonNumber].name + " attacks first at level: " + z);
-				higherSpeedFound = true;
-			}
-		}
-	}
-    if (higherSpeedFound == false){
-        speedP.addClass("speedNotFound");
-        speedP.text(pokemon[pokemonNumber].name + " NEVER GOES FIRST");
-    }
-    higherSpeedFound = false;
-    $("#pokemon"+ i).append(speedP);
-    
-    if(maxLevel>100){
-        maxLevel=100;
-        $('#userMaxLevel').val(100);
-        
-    }
-    $("#pokemon"+ i).append("<div class='pokemonAttackListContainer' id='simulation" +timesSimulationRan + "eliteFour" + i + "'>");
-
-	for(var j=0; j<pokemon[pokemonNumber].attackList.length; j++){
-			stabValue = calculateStab(pokemon[pokemonNumber].attackList[j].type, pokemon[pokemonNumber].type);
-			usesNormalAttack = isItANormalAttack(pokemon[pokemonNumber].attackList[j].type); //if true, use normal.  if false, use special attack
-			modifierValue = calculateTypeBonus(pokemon[pokemonNumber].attackList[j].type, eliteFour[i].type)
-
-
-			for(var x=20; x<=maxLevel; x++){
-
-				if(!oneHitFound){
-					if(usesNormalAttack){
-						
-						attackValue = calculateAttack(pokemon[pokemonNumber].attack, x, attackIV, pokemonNature);
-						defenseValue = eliteFour[i].defense;
-                        
-					}
-					else{
-						attackValue = calculateSpecialAttack(pokemon[pokemonNumber].specialAttack, x, specialAttackIV, pokemonNature);
-						defenseValue = eliteFour[i].specialDefense;
-					}
-
-					if(calculateTotalDamage(x, attackValue, defenseValue, pokemon[pokemonNumber].attackList[j].power, stabValue, modifierValue) > eliteFour[i].hp){
-						oneHitLevel = x;
-						oneHitFound = true;
-						var attackListP = $("<p>");
-						attackListP.addClass("attackNames");
-						attackListP.html("<img src=" +getImageLink(pokemonNumber) + "></img>" +  pokemon[pokemonNumber].attackList[j].name + " - LVL " + oneHitLevel);
-						$("#simulation" +timesSimulationRan + "eliteFour" + i).append(attackListP);
-                        $("#legend"+i).addClass('fainted');
-
-					}
-				}
-
-			}
-        $("#pokemon"+ i).append("</div>"); //closes out pokemonAttackListContainer
-			oneHitLevel = 1;
-			oneHitFound = false;
-
-	}
-
-}
-    
-    
-/* ADDS HREFS TO LEGEND, SO USER CAN NAVIGATE THROUGH SIMULATION EASIER This needs to come after elite four pokemon divs are dynamically created.  
-Also, it only needs to happen onces or we will get stuck in anchorception <a><a><a> etc.
+/*  A lot of Users were going to website and just spamming the Start button.  This resulted in most users thinking website was bugged.
+    This stops users from selecting same pokemon twice, and also gives them a hint to using website properly -- selecting pokemon
+    that can work together to win!
 */
-    if(firstSimulation){
-        for(var z=0; z<eliteFour.length; z++){
-            $("#legend"+z).wrap("<a href='#pokemon" + z + "' ></a>");
+if(userSelectionHistory.indexOf(pokemonNumber) != -1){
+    $('#errDuplicatePokemon').css('visibility', 'visible');
+   
+}else{
+    $('#errDuplicatePokemon').css('visibility', 'hidden');
+    userSelectionHistory.push(pokemonNumber);
+
+    for(var i=0; i<eliteFour.length; i++){
+        if(firstSimulation){
+            var newP = $("<div>");
+            newP.addClass("eliteFourPokemon");
+            newP.attr("id", "pokemon" + i);
+            newP.html("<img class = 'eliteFourImage' src=" +getImageLink(eliteFour[i].id) + "></img> <h4>" + eliteFour[i].name) + "</h4></div>";
+            $("#simulationOutput").append(newP);
+        };
+
+
+        var speedP = $("<p>");
+        speedP.addClass("pokemonSpeed");
+        for(var z=0; z<=100; z++){
+            if(!higherSpeedFound){
+                if (calculateSpeed(pokemon[pokemonNumber].speed, z, speedIV, pokemonNature) > eliteFour[i].speed){
+                    speedP.text(pokemon[pokemonNumber].name + " attacks first at level: " + z);
+                    higherSpeedFound = true;
+                }
+            }
+        }
+        if (higherSpeedFound == false){
+            speedP.addClass("speedNotFound");
+            speedP.text(pokemon[pokemonNumber].name + " NEVER ATTACKS FIRST");
+        }
+        higherSpeedFound = false;
+        $("#pokemon"+ i).append(speedP);
+
+        if(maxLevel>100){
+            maxLevel=100;
+            $('#userMaxLevel').val(100);
+
+        }
+        var noAttackFound = true;
+        $("#pokemon"+ i).append("<div class='pokemonAttackListContainer' id='simulation" +timesSimulationRan + "eliteFour" + i + "'>");
+
+        for(var j=0; j<pokemon[pokemonNumber].attackList.length; j++){
+                stabValue = calculateStab(pokemon[pokemonNumber].attackList[j].type, pokemon[pokemonNumber].type);
+                usesNormalAttack = isItANormalAttack(pokemon[pokemonNumber].attackList[j].type); //if true, use normal.  if false, use special attack
+                modifierValue = calculateTypeBonus(pokemon[pokemonNumber].attackList[j].type, eliteFour[i].type)
+                
+
+                for(var x=20; x<=maxLevel; x++){
+
+                    if(!oneHitFound){
+                        if(usesNormalAttack){
+
+                            attackValue = calculateAttack(pokemon[pokemonNumber].attack, x, attackIV, pokemonNature);
+                            defenseValue = eliteFour[i].defense;
+
+                        }
+                        else{
+                            attackValue = calculateSpecialAttack(pokemon[pokemonNumber].specialAttack, x, specialAttackIV, pokemonNature);
+                            defenseValue = eliteFour[i].specialDefense;
+                        }
+
+                        if(calculateTotalDamage(x, attackValue, defenseValue, pokemon[pokemonNumber].attackList[j].power, stabValue, modifierValue) > eliteFour[i].hp){
+                            oneHitLevel = x;
+                            oneHitFound = true;
+                            noAttackFound = false;
+                            var attackListP = $("<p>");
+                            attackListP.addClass("attackNames");
+                            attackListP.html("<img src=" +getImageLink(pokemonNumber) + "></img>" +  pokemon[pokemonNumber].attackList[j].name + " - LVL " + oneHitLevel);
+                            $("#simulation" +timesSimulationRan + "eliteFour" + i).append(attackListP);
+                            $("#legend"+i).addClass('fainted');
+
+                        }
+                    }
+
+                }
+
+            
+            $("#pokemon"+ i).append("</div>"); //closes out pokemonAttackListContainer
+                oneHitLevel = 1;
+                oneHitFound = false;
+
+        }
+        if(noAttackFound == true){
+                            var attackListP = $("<p>");
+                            attackListP.addClass("noAttackFound");
+                            attackListP.html(pokemon[pokemonNumber].name + " has no moves that one shot KO " +eliteFour[i].name);
+                            $("#pokemon"+ i).append(attackListP);
+        }
+
+    }
+}
+
+    /* ADDS HREFS TO LEGEND, SO USER CAN NAVIGATE THROUGH SIMULATION EASIER This needs to come after elite four pokemon divs are dynamically created.  
+    Also, it only needs to happen onces or we will get stuck in anchorception <a><a><a> etc.
+    */
+        if(firstSimulation){
+            for(var z=0; z<eliteFour.length; z++){
+                $("#legend"+z).wrap("<a href='#pokemon" + z + "' ></a>");
+            }
+        }
+
+        firstSimulation=false;
+
+    });
+        //populates pokemon selection.  it checks for attackList as part of legacy code -- while website was in progress not all pokemon had move lists complete
+    for(var i=0; i<150; i++){
+        if("attackList" in pokemon[i]){
+            $("#userPokemonValue").append($('<option>', {value:i, text: (i+1) + " - " + pokemon[i].name}));
         }
     }
 
-    firstSimulation=false;
 
-});
-    //populates pokemon selection.  it checks for attackList as part of legacy code -- while website was in progress not all pokemon had move lists complete
-for(var i=0; i<150; i++){
-	if("attackList" in pokemon[i]){
-		$("#userPokemonValue").append($('<option>', {value:i, text: (i+1) + " - " + pokemon[i].name}));
-	}
-}
-    
-    //populates images in legend
-    
-  /*  <div id="eliteFourLegend">
-    <!--//This is the legend on right side of screen which shows which EliteFour have been defeated -->
-   POPULATES THE LEGEND
-</div> */
-    
-for(var i=0; i<=4; i++){
-    var newImg = $("<img>");
-    newImg.attr('id', 'legend'+i);
-    newImg.attr("src", getImageLink(eliteFour[i].id));
-    $("#lorelei").append(newImg);
-}
-for(var i=5; i<=9; i++){
-    var newImg = $("<img>");
-    newImg.attr('id', 'legend'+i);
-    newImg.attr("src", getImageLink(eliteFour[i].id));
-    $("#bruno").append(newImg);
-}
-for(var i=10; i<=14; i++){
-    var newImg = $("<img>");
-    newImg.attr('id', 'legend'+i);
-    newImg.attr("src", getImageLink(eliteFour[i].id));
-    $("#agatha").append(newImg);
-}
-for(var i=15; i<=19; i++){
-    var newImg = $("<img>");
-    newImg.attr('id', 'legend'+i);
-    newImg.attr("src", getImageLink(eliteFour[i].id));
-    $("#lance").append(newImg);
-}
-for(var i=20; i<=24; i++){
-    var newImg = $("<img>");
-    newImg.attr('id', 'legend'+i);
-    newImg.attr("src", getImageLink(eliteFour[i].id));
-    $("#green").append(newImg);
-}
-$("#green").append("<br/>")    
-for(var i=25; i<=28; i++){
-    var newImg = $("<img>");
-    newImg.attr('id', 'legend'+i);
-    newImg.attr("src", getImageLink(eliteFour[i].id));
-    $("#green").append(newImg);
-}
+        //populates images in legend
+
+      /*  <div id="eliteFourLegend">
+        <!--//This is the legend on right side of screen which shows which EliteFour have been defeated -->
+       POPULATES THE LEGEND
+    </div> */
+
+    for(var i=0; i<=4; i++){
+        var newImg = $("<img>");
+        newImg.attr('id', 'legend'+i);
+        newImg.attr("src", getImageLink(eliteFour[i].id));
+        $("#lorelei").append(newImg);
+    }
+    for(var i=5; i<=9; i++){
+        var newImg = $("<img>");
+        newImg.attr('id', 'legend'+i);
+        newImg.attr("src", getImageLink(eliteFour[i].id));
+        $("#bruno").append(newImg);
+    }
+    for(var i=10; i<=14; i++){
+        var newImg = $("<img>");
+        newImg.attr('id', 'legend'+i);
+        newImg.attr("src", getImageLink(eliteFour[i].id));
+        $("#agatha").append(newImg);
+    }
+    for(var i=15; i<=19; i++){
+        var newImg = $("<img>");
+        newImg.attr('id', 'legend'+i);
+        newImg.attr("src", getImageLink(eliteFour[i].id));
+        $("#lance").append(newImg);
+    }
+    for(var i=20; i<=24; i++){
+        var newImg = $("<img>");
+        newImg.attr('id', 'legend'+i);
+        newImg.attr("src", getImageLink(eliteFour[i].id));
+        $("#green").append(newImg);
+    }
+    $("#green").append("<br/>")    
+    for(var i=25; i<=28; i++){
+        var newImg = $("<img>");
+        newImg.attr('id', 'legend'+i);
+        newImg.attr("src", getImageLink(eliteFour[i].id));
+        $("#green").append(newImg);
+    }
 
 
-    //updates images when user selects a pokemon (before submission)
-$("#userPokemonValue").on("change", function(){
-    var pokemonNumber = $("#userPokemonValue").val();
-    $("#pokemonIconImage").attr("src", getImageLink(pokemonNumber));
-});
+        //updates images when user selects a pokemon (before submission)
+    $("#userPokemonValue").on("change", function(){
+        var pokemonNumber = $("#userPokemonValue").val();
+        $("#pokemonIconImage").attr("src", getImageLink(pokemonNumber));
+    });
 
 </script>
 </body>
