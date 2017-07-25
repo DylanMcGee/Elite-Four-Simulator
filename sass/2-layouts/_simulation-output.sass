@@ -9,6 +9,7 @@
         height: 100px
         display: inline
         margin-bottom: -30px
+        margin-left: 5%
     h4
         display: inline
         height: 100%
@@ -22,9 +23,11 @@
 .pokemonSpeed
     margin-top: 20px
     margin-left: 20%
-    font-size: .5em
+    font-size: .6em
     font-style: italic
     font-weight: bold
+    font-family: $helvetica
+    
         
 // User Pokemon images & attack description
 
@@ -36,3 +39,10 @@
         
 .pokemonAttackListContainer
     +columns(3 200px)
+    
+    
+.noAttackFound
+    color: shade($danger,30%)
+    font-size: .5em
+    margin-left: 20%
+    font-family: $helvetica

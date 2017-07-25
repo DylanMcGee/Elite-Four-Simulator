@@ -2086,7 +2086,7 @@ if(userSelectionHistory.indexOf(pokemonNumber) != -1){
         //populates pokemon selection.  it checks for attackList as part of legacy code -- while website was in progress not all pokemon had move lists complete
     for(var i=0; i<150; i++){
         if("attackList" in pokemon[i]){
-            $("#userPokemonValue").append($('<option>', {value:i, text: (i+1) + " - " + pokemon[i].name}));
+            $("#userPokemonValue").append($('<option>', {value:i, text: pokemon[i].name}));
         }
     }
 
